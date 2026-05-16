@@ -599,4 +599,815 @@
                 
                 <div class="card" data-card-id="fixed-character">
                     <div class="card-header header-personagem"><span>Ficha de Personagem</span></div>
-           
+                    <input type="text" class="title-input" data-save="char-name" placeholder="NOME DO PERSONAGEM">
+                    
+                    <span class="label">Jogador</span><input type="text" data-save="char-player">
+                    <span class="label">Nome de Herói</span><input type="text" data-save="char-hero-name">
+                    
+                    <span class="label">Características</span>
+                    <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 4px;">
+                        <div class="power-activation-row">
+                            <input type="checkbox" class="power-toggle type-label" data-power-modifier="plus" data-tracker="char-trait-act-1">
+                            <select data-save="char-traits-select-1" style="font-family: 'Oswald', sans-serif;">
+                                <option value="Nulo">Nulo</option>
+                                <option value="Força">Força</option>
+                                <option value="Resistência">Resistência</option>
+                                <option value="Agilidade">Agilidade</option>
+                                <option value="Velocidade">Velocidade</option>
+                            </select>
+                        </div>
+                        <div class="power-activation-row">
+                            <input type="checkbox" class="power-toggle type-label" data-power-modifier="plus" data-tracker="char-trait-act-2">
+                            <select data-save="char-traits-select-2" style="font-family: 'Oswald', sans-serif;">
+                                <option value="Nulo">Nulo</option>
+                                <option value="Força">Força</option>
+                                <option value="Resistência">Resistência</option>
+                                <option value="Agilidade">Agilidade</option>
+                                <option value="Velocidade">Velocidade</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <span class="label">Turma</span>
+                    <div class="turma-options">
+                        <label><input type="radio" name="turma-b" value="1A" onclick="toggleRadio(this)">1A</label>
+                        <label><input type="radio" name="turma-b" value="1B" onclick="toggleRadio(this)">1B</label>
+                        <span style="color:#777;">/</span>
+                        <label><input type="radio" name="turma-b" value="2A" onclick="toggleRadio(this)">2A</label>
+                        <label><input type="radio" name="turma-b" value="2B" onclick="toggleRadio(this)">2B</label>
+                        <span style="color:#777;">/</span>
+                        <label><input type="radio" name="turma-b" value="3A" onclick="toggleRadio(this)">3A</label>
+                        <label><input type="radio" name="turma-b" value="3B" onclick="toggleRadio(this)">3B</label>
+                    </div>
+
+                    <span class="label">Ascenção</span>
+                    <div class="ascencao-container" style="margin-bottom: 4px;">
+                        <label class="ascencao-row"><input type="radio" name="asc-b" value="Aspirante" checked data-was-checked="true" onclick="syncAscensionAndScale('Aspirante', 'Rua')"><span>Aspirante</span></label>
+                        <label class="ascencao-row"><input type="radio" name="asc-b" value="Sidekick" onclick="syncAscensionAndScale('Sidekick', 'Quarteirão')"><span>Sidekick</span></label>
+                        <label class="ascencao-row"><input type="radio" name="asc-b" value="Hero" onclick="syncAscensionAndScale('Hero', 'Distrito')"><span>Hero</span></label>
+                        <label class="ascencao-row"><input type="radio" name="asc-b" value="Pro Hero" onclick="syncAscensionAndScale('Pro Hero', 'Cidade')"><span>Pro Hero</span></label>
+                        <label class="ascencao-row symbol"><input type="radio" name="asc-b" value="SYMBOL" onclick="syncAscensionAndScale('SYMBOL', 'Cataclismo')"><span>SYMBOL</span></label>
+                    </div>
+                    
+                    <span class="label">Escala de Destruição</span>
+                    <div class="scale-options">
+                        <label><input type="radio" name="dest-scale" value="Rua" checked data-was-checked="true" onclick="syncAscensionAndScale('Aspirante', 'Rua')">Rua</label>
+                        <label><input type="radio" name="dest-scale" value="Quarteirão" onclick="syncAscensionAndScale('Sidekick', 'Quarteirão')">Quart.</label>
+                        <label><input type="radio" name="dest-scale" value="Distrito" onclick="syncAscensionAndScale('Hero', 'Distrito')">Dist.</label>
+                        <label><input type="radio" name="dest-scale" value="Cidade" onclick="syncAscensionAndScale('Pro Hero', 'Cidade')">Cid.</label>
+                        <label><input type="radio" name="dest-scale" value="Cataclismo" onclick="syncAscensionAndScale('SYMBOL', 'Cataclismo')">Catac.</label>
+                    </div>
+                </div>
+
+                <div class="card" data-card-id="fixed-quirk">
+                    <div class="card-header header-individualidade"><span>Individualidade</span></div>
+                    <input type="text" class="title-input" data-save="quirk-name" placeholder="NOME DA INDIVIDUALIDADE">
+                    
+                    <span class="label">Descrição</span><textarea style="height: 110px; margin-bottom: 3px;" data-save="quirk-desc"></textarea>
+
+                    <span class="label">Dados da Individualidade</span>
+                    <div class="dados-grid">
+                        <div class="dado-box">
+                            <span>Tipo</span>
+                            <select data-save="quirk-type">
+                                <option value="Emissão">Emissão</option>
+                                <option value="Mutante">Mutante</option>
+                                <option value="Transformação">Transformação</option>
+                            </select>
+                        </div>
+                        <div class="dado-box">
+                            <span>Alcance</span>
+                            <select data-save="quirk-range">
+                                <option value="Nulo">Nulo</option>
+                                <option value="Contato">Contato</option>
+                                <option value="Curto 5m">Curto 5m</option>
+                                <option value="Médio 15m">Médio 15m</option>
+                                <option value="Longo 30m">Longo 30m</option>
+                                <option value="Extremo 60m">Extremo 60m</option>
+                            </select>
+                        </div>
+                        <div class="dado-box">
+                            <span>Área</span>
+                            <select data-save="quirk-area">
+                                <option value="Nulo">Nulo</option>
+                                <option value="Pequena 10m">Pequena 10m</option>
+                                <option value="Média 20m">Média 20m</option>
+                                <option value="Grande 50m">Grande 50m</option>
+                                <option value="Massiva 80m">Massiva 80m</option>
+                            </select>
+                        </div>
+                        <div class="dado-box">
+                            <span>Mobilidade</span>
+                            <select data-save="quirk-mobility">
+                                <option value="0 - Limitado">0 - Limitado</option>
+                                <option value="1 - Corredor">1 - Corredor</option>
+                                <option value="2 - Parkour">2 - Parkour</option>
+                                <option value="3 - Impulso">3 - Impulso</option>
+                                <option value="4 - Aéreo">4 - Aéreo</option>
+                                <option value="5 - Supersônico">5 - Supersônico</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <span class="label">Rótulos de Poder</span>
+                    <div style="display:flex; flex-direction:column; gap:4px;">
+                        <div class="power-activation-row">
+                            <input type="checkbox" class="power-toggle type-label" data-power-modifier="plus" data-tracker="q-label-act-1">
+                            <input type="text" data-save="quirk-label-1">
+                        </div>
+                        <div class="power-activation-row">
+                            <input type="checkbox" class="power-toggle type-label" data-power-modifier="plus" data-tracker="q-label-act-2">
+                            <input type="text" data-save="quirk-label-2">
+                        </div>
+                        <div class="power-activation-row">
+                            <input type="checkbox" class="power-toggle type-label" data-power-modifier="plus" data-tracker="q-label-act-3">
+                            <input type="text" data-save="quirk-label-3">
+                        </div>
+                        <div class="power-activation-row" id="quirk-row-label-4">
+                            <input type="checkbox" class="power-toggle type-label" data-power-modifier="plus" data-tracker="q-label-act-4" id="q-cb-4">
+                            <input type="text" data-save="quirk-label-4" id="q-txt-4">
+                        </div>
+                        <div class="power-activation-row" id="quirk-row-label-5">
+                            <input type="checkbox" class="power-toggle type-label" data-power-modifier="plus" data-tracker="q-label-act-5" id="q-cb-5">
+                            <input type="text" data-save="quirk-label-5" id="q-txt-5">
+                        </div>
+                    </div>
+                    
+                    <span class="label">Fraquezas</span>
+                    <div style="display:flex; flex-direction:column; gap:4px;">
+                        <div class="power-activation-row">
+                            <input type="checkbox" class="power-toggle type-weakness" data-power-modifier="minus" data-tracker="q-weak-act-1">
+                            <input type="text" data-save="quirk-weakness-1">
+                        </div>
+                        <div class="power-activation-row">
+                            <input type="checkbox" class="power-toggle type-weakness" data-power-modifier="minus" data-tracker="q-weak-act-2">
+                            <input type="text" data-save="quirk-weakness-2">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" data-card-id="fixed-status">
+                    <div class="card-header header-status"><span>Controle de Status</span></div>
+                    <div class="status-section-title bg-feridas">Feridas</div>
+                    <div class="tracker-wrapper tracker-feridas">
+                        <div class="tracker-cell" data-cell-index="1"><input type="checkbox" data-tracker="f-1"><span>1</span></div>
+                        <div class="tracker-cell" data-cell-index="2"><input type="checkbox" data-tracker="f-2"><span>2</span></div>
+                        <div class="tracker-cell" data-cell-index="3"><input type="checkbox" data-tracker="f-3"><span>3</span></div>
+                        <div class="tracker-cell" data-cell-index="4"><input type="checkbox" data-tracker="f-4"><span>4</span></div>
+                        <div class="tracker-cell" data-cell-index="5"><input type="checkbox" data-tracker="f-5"><span>5</span></div>
+                        <div class="tracker-cell" data-cell-index="6"><input type="checkbox" data-tracker="f-6"><span>6</span></div>
+                        <div class="tracker-cell" data-cell-index="7"><input type="checkbox" data-tracker="f-7"><span>7</span></div>
+                        <div class="tracker-cell" data-cell-index="8"><input type="checkbox" data-tracker="f-8"><span>8</span></div>
+                        <div class="tracker-cell" data-cell-index="9"><input type="checkbox" data-tracker="f-9"><span>9</span></div>
+                        <div class="tracker-cell" data-cell-index="10"><input type="checkbox" data-tracker="f-10"><span>10</span></div>
+                    </div>
+                    <span class="label">Condição</span>
+                    <div class="condicao-box">
+                        <label><input type="radio" name="cond-f" value="Leve" onclick="toggleRadio(this); checkPlusUltraStatus(); calculatePowerSystem()"> Leve</label>
+                        <label><input type="radio" name="cond-f" value="Moderado" onclick="toggleRadio(this); checkPlusUltraStatus(); calculatePowerSystem()"> Moderado</label>
+                        <label><input type="radio" name="cond-f" value="Incapacitado" onclick="toggleRadio(this); checkPlusUltraStatus(); calculatePowerSystem()"> Incapacitado</label>
+                    </div>
+
+                    <div class="status-section-title bg-energia" style="margin-top: 5px;">Energia</div>
+                    <div class="tracker-wrapper tracker-energia">
+                        <div class="tracker-cell" data-cell-index="1"><input type="checkbox" data-tracker="e-1"><span>1</span></div>
+                        <div class="tracker-cell" data-cell-index="2"><input type="checkbox" data-tracker="e-2"><span>2</span></div>
+                        <div class="tracker-cell" data-cell-index="3"><input type="checkbox" data-tracker="e-3"><span>3</span></div>
+                        <div class="tracker-cell" data-cell-index="4"><input type="checkbox" data-tracker="e-4"><span>4</span></div>
+                        <div class="tracker-cell" data-cell-index="5"><input type="checkbox" data-tracker="e-5"><span>5</span></div>
+                        <div class="tracker-cell" data-cell-index="6"><input type="checkbox" data-tracker="e-6"><span>6</span></div>
+                        <div class="tracker-cell" data-cell-index="7"><input type="checkbox" data-tracker="e-7"><span>7</span></div>
+                        <div class="tracker-cell" data-cell-index="8"><input type="checkbox" data-tracker="e-8"><span>8</span></div>
+                        <div class="tracker-cell" data-cell-index="9"><input type="checkbox" data-tracker="e-9"><span>9</span></div>
+                        <div class="tracker-cell" data-cell-index="10"><input type="checkbox" data-tracker="e-10"><span>10</span></div>
+                    </div>
+                    <span class="label">Condição</span>
+                    <div class="condicao-box" style="margin-bottom: 6px;">
+                        <label><input type="radio" name="cond-e" value="Leve" onclick="toggleRadio(this); checkPlusUltraStatus(); calculatePowerSystem()"> Leve</label>
+                        <label><input type="radio" name="cond-e" value="Moderado" onclick="toggleRadio(this); checkPlusUltraStatus(); calculatePowerSystem()"> Moderado</label>
+                        <label><input type="radio" name="cond-e" value="Colapso" onclick="toggleRadio(this); checkPlusUltraStatus(); calculatePowerSystem()"> Colapso</label>
+                    </div>
+
+                    <button id="btn-plus-ultra" class="btn-plus-ultra" onclick="triggerPlusUltra()">Plus Ultra!!</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="zone">
+            <div class="zone-header"><div class="zone-title">🔥 Capacidades</div></div>
+            <div class="cards-carousel" id="zone-capacidades"></div>
+        </div>
+
+        <div class="zone">
+            <div class="zone-header"><div class="zone-title">🛠️ Suporte</div></div>
+            <div class="cards-carousel" id="zone-suporte"></div>
+        </div>
+
+    </div>
+
+    <script>
+        const ascensionRules = {
+            'Aspirante':   { limitPlus: 3, trackerMax: 5 },
+            'Sidekick':    { limitPlus: 4, trackerMax: 6 },
+            'Hero':        { limitPlus: 5, trackerMax: 7 },
+            'Pro Hero':    { limitPlus: 6, trackerMax: 8 },
+            'SYMBOL':      { limitPlus: 7, trackerMax: 10 }
+        };
+
+        function getCurrentAscension() {
+            const activeAsc = document.querySelector('input[name="asc-b"]:checked');
+            return activeAsc ? activeAsc.value : 'Aspirante';
+        }
+
+        function updateDynamicLimits() {
+            const currentAsc = getCurrentAscension();
+            const rules = ascensionRules[currentAsc];
+
+            // 1. Atualizar limites de Ferida e Energia
+            document.querySelectorAll('.tracker-cell').forEach(cell => {
+                const idx = parseInt(cell.getAttribute('data-cell-index'));
+                if (idx > rules.trackerMax) {
+                    cell.classList.add('locked');
+                    const cb = cell.querySelector('input');
+                    if(cb) cb.checked = false;
+                } else {
+                    cell.classList.remove('locked');
+                }
+            });
+
+            // 2. Trava dinamicamente os rótulos de poder 4 e 5 da Individualidade
+            const row4 = document.getElementById('quirk-row-label-4');
+            const cb4 = document.getElementById('q-cb-4');
+            const txt4 = document.getElementById('q-txt-4');
+
+            const row5 = document.getElementById('quirk-row-label-5');
+            const cb5 = document.getElementById('q-cb-5');
+            const txt5 = document.getElementById('q-txt-5');
+
+            if (currentAsc === 'Aspirante') {
+                row4.classList.add('locked-row');
+                cb4.disabled = true;
+                cb4.checked = false;
+                txt4.disabled = true;
+                txt4.value = '';
+            } else {
+                row4.classList.remove('locked-row');
+                cb4.disabled = false;
+                txt4.disabled = false;
+            }
+
+            if (currentAsc === 'Aspirante' || currentAsc === 'Sidekick' || currentAsc === 'Hero') {
+                row5.classList.add('locked-row');
+                cb5.disabled = true;
+                cb5.checked = false;
+                txt5.disabled = true;
+                txt5.value = '';
+            } else {
+                row5.classList.remove('locked-row');
+                cb5.disabled = false;
+                txt5.disabled = false;
+            }
+        }
+
+        function syncAscensionAndScale(ascValue, scaleValue) {
+            const ascRadios = document.getElementsByName('asc-b');
+            ascRadios.forEach(radio => {
+                if (radio.value === ascValue) {
+                    radio.checked = true;
+                    radio.dataset.wasChecked = "true";
+                } else {
+                    radio.dataset.wasChecked = "false";
+                }
+            });
+
+            const scaleRadios = document.getElementsByName('dest-scale');
+            scaleRadios.forEach(radio => {
+                if (radio.value === scaleValue) {
+                    radio.checked = true;
+                    radio.dataset.wasChecked = "true";
+                } else {
+                    radio.dataset.wasChecked = "false";
+                }
+            });
+
+            updateDynamicLimits();
+            saveAllData();
+            calculatePowerSystem();
+        }
+
+        function toggleRadio(radio) {
+            if (radio.dataset.wasChecked == "true") {
+                radio.checked = false;
+                radio.dataset.wasChecked = "false";
+            } else {
+                const name = radio.name;
+                const siblings = document.getElementsByName(name);
+                siblings.forEach(el => el.dataset.wasChecked = "false");
+                radio.dataset.wasChecked = "true";
+            }
+            updateDynamicLimits();
+            saveAllData();
+        }
+
+        function calculatePowerSystem() {
+            const currentAsc = getCurrentAscension();
+            const maxPlusAllowed = ascensionRules[currentAsc].limitPlus;
+
+            let plusScore = 0;
+            let minusScore = 0;
+
+            const activePlusCheckboxes = document.querySelectorAll('input[data-power-modifier="plus"]:checked');
+            
+            if (activePlusCheckboxes.length > maxPlusAllowed) {
+                alert(`Limite de bônus atingido!\nComo ${currentAsc}, seu limite de modificadores ativos é +${maxPlusAllowed}.`);
+                if (window.event && window.event.target) {
+                    window.event.target.checked = false;
+                }
+                saveAllData();
+                return calculatePowerSystem();
+            }
+
+            plusScore = activePlusCheckboxes.length;
+
+            document.querySelectorAll('input[data-power-modifier="minus"]:checked').forEach(() => {
+                minusScore += 1;
+            });
+
+            const modFeridas = document.querySelector('input[name="cond-f"][value="Moderado"]:checked');
+            const modEnergia = document.querySelector('input[name="cond-e"][value="Moderado"]:checked');
+            
+            const individualidadeCard = document.querySelector('[data-card-id="fixed-quirk"]');
+            if (individualidadeCard) {
+                const hasQuirkActiveToggle = individualidadeCard.querySelectorAll('.power-toggle:checked').length > 0;
+                
+                if (hasQuirkActiveToggle) {
+                    if (modFeridas) minusScore += 1;
+                    if (modEnergia) minusScore += 1;
+                }
+            }
+
+            const finalPower = plusScore - minusScore;
+
+            document.getElementById('display-plus').innerText = plusScore;
+            document.getElementById('display-minus').innerText = minusScore;
+            document.getElementById('display-power').innerText = (finalPower > 0 ? "+" : "") + finalPower;
+        }
+
+        function resetPowerCounters() {
+            if (confirm("Deseja desmarcar todas as caixas de bônus/fraqueza ativas e zerar a contagem de Power?")) {
+                document.querySelectorAll('input[data-power-modifier]').forEach(checkbox => {
+                    if(!checkbox.disabled) {
+                        checkbox.checked = false;
+                    }
+                });
+                saveAllData();
+                calculatePowerSystem();
+            }
+        }
+
+        document.body.addEventListener('change', function(event) {
+            if (event.target && event.target.hasAttribute('data-power-modifier')) {
+                calculatePowerSystem();
+                saveAllData();
+            }
+            if (event.target && (event.target.hasAttribute('data-save') || event.target.hasAttribute('data-tracker') || event.target.type === 'radio')) {
+                saveAllData();
+                checkPlusUltraStatus();
+            }
+        });
+
+        document.body.addEventListener('input', function(event) {
+            if (event.target && event.target.hasAttribute('data-save')) {
+                saveAllData();
+            }
+        });
+
+        function checkPlusUltraStatus() {
+            const inc = document.querySelector('input[name="cond-f"][value="Incapacitado"]:checked');
+            const col = document.querySelector('input[name="cond-e"][value="Colapso"]:checked');
+            const btn = document.getElementById('btn-plus-ultra');
+
+            if (inc || col) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        }
+
+        function triggerPlusUltra() {
+            const btn = document.getElementById('btn-plus-ultra');
+            if (!btn.classList.contains('active')) return;
+
+            if (confirm("Ir além! PLUS ULTRA!!! Deseja ativar o modo de superação extrema?")) {
+                const checkboxesFeridas = Array.from(document.querySelectorAll('.tracker-feridas input[data-tracker]:not(.locked input)'));
+                const feridasMarcadas = checkboxesFeridas.filter(cb => cb.checked);
+                const feridasParaCurar = Math.floor(feridasMarcadas.length / 2);
+
+                for (let i = 0; i < feridasParaCurar; i++) {
+                    if (feridasMarcadas[feridasMarcadas.length - 1 - i]) {
+                        feridasMarcadas[feridasMarcadas.length - 1 - i].checked = false;
+                    }
+                }
+
+                const checkboxesEnergia = Array.from(document.querySelectorAll('.tracker-energia input[data-tracker]:not(.locked input)'));
+                const energiaMarcada = checkboxesEnergia.filter(cb => cb.checked);
+                const energiaParaRecuperar = Math.floor(energiaMarcada.length / 2);
+
+                for (let i = 0; i < energiaParaRecuperar; i++) {
+                    if (energiaMarcada[energiaMarcada.length - 1 - i]) {
+                        energiaMarcada[energiaMarcada.length - 1 - i].checked = false;
+                    }
+                }
+
+                const incRadio = document.querySelector('input[name="cond-f"][value="Incapacitado"]');
+                if (incRadio && incRadio.checked) toggleRadio(incRadio);
+
+                const colRadio = document.querySelector('input[name="cond-e"][value="Colapso"]');
+                if (colRadio && colRadio.checked) toggleRadio(colRadio);
+
+                checkPlusUltraStatus();
+                saveAllData();
+                calculatePowerSystem();
+                alert(`PLUS ULTRA ATIVADO!\nVocê superou seus limites e recuperou:\n❤️ ${feridasParaCurar} níveis de Feridas\n⚡ ${energiaParaRecuperar} pontos de Energia!`);
+            }
+        }
+
+        const templates = {
+            movimento: () => `
+                <div class="card-header header-movimento">
+                    <span>Movimento</span>
+                    <div class="rank-box">
+                        <span>RANK</span>
+                        <select class="save-dynamic">
+                            <option value="C">C</option>
+                            <option value="B">B</option>
+                            <option value="A">A</option>
+                            <option value="S">S</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="text" class="title-input save-dynamic" placeholder="NOME DO MOVIMENTO">
+                
+                <span class="label">Descrição</span><textarea style="height: 150px; margin-bottom: 5px;" class="save-dynamic"></textarea>
+
+                <span class="label">Dados do Movimento</span>
+                <div class="dados-grid">
+                    <div class="dado-box">
+                        <span>Tipo</span>
+                        <select class="save-dynamic">
+                            <option value="Dano">Dano</option>
+                            <option value="Suporte">Suporte</option>
+                            <option value="Aprimoramento">Aprimoramento</option>
+                            <option value="Utilidade">Utilidade</option>
+                            <option value="Mobilidade">Mobilidade</option>
+                        </select>
+                    </div>
+                    <div class="dado-box">
+                        <span>Alcance</span>
+                        <select class="save-dynamic">
+                            <option value="Nulo">Nulo</option>
+                            <option value="Contato">Contato</option>
+                            <option value="Curto 5m">Curto 5m</option>
+                            <option value="Médio 15m">Médio 15m</option>
+                            <option value="Longo 30m">Longo 30m</option>
+                            <option value="Extremo 60m">Extremo 60m</option>
+                        </select>
+                    </div>
+                    <div class="dado-box">
+                        <span>Área</span>
+                        <select class="save-dynamic">
+                            <option value="Nulo">Nulo</option>
+                            <option value="Pequena 10m">Pequena 10m</option>
+                            <option value="Média 20m">Média 20m</option>
+                            <option value="Grande 50m">Grande 50m</option>
+                            <option value="Massiva 80m">Massiva 80m</option>
+                        </select>
+                    </div>
+                    <div class="dado-box">
+                        <span>Mobilidade</span>
+                        <select class="save-dynamic">
+                            <option value="0 - Limitado">0 - Limitado</option>
+                            <option value="1 - Corredor">1 - Corredor</option>
+                            <option value="2 - Parkour">2 - Parkour</option>
+                            <option value="3 - Impulso">3 - Impulso</option>
+                            <option value="4 - Aéreo">4 - Aéreo</option>
+                            <option value="5 - Supersônico">5 - Supersônico</option>
+                        </select>
+                    </div>
+                </div>
+
+                <span class="label">Rótulos de Poder</span>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <div class="power-activation-row">
+                        <input type="checkbox" class="power-toggle type-label dynamic-power-toggle" data-power-modifier="plus">
+                        <input type="text" class="save-dynamic">
+                    </div>
+                    <div class="power-activation-row">
+                        <input type="checkbox" class="power-toggle type-label dynamic-power-toggle" data-power-modifier="plus">
+                        <input type="text" class="save-dynamic">
+                    </div>
+                    <div class="power-activation-row">
+                        <input type="checkbox" class="power-toggle type-label dynamic-power-toggle" data-power-modifier="plus">
+                        <input type="text" class="save-dynamic">
+                    </div>
+                </div>
+                <span class="label">Fraqueza</span>
+                <div class="power-activation-row">
+                    <input type="checkbox" class="power-toggle type-weakness dynamic-power-toggle" data-power-modifier="minus">
+                    <input type="text" class="save-dynamic">
+                </div>
+            `,
+            equipamento: () => `
+                <div class="card-header header-equipamento">
+                    <span>Equipamento</span>
+                    <div class="rank-box">
+                        <span>RANK</span>
+                        <select class="save-dynamic">
+                            <option value="C">C</option>
+                            <option value="B">B</option>
+                            <option value="A">A</option>
+                            <option value="S">S</option>
+                        </select>
+                    </div>
+                </div>
+                <input type="text" class="title-input save-dynamic" placeholder="NOME DO EQUIPAMENTO">
+                
+                <span class="label">Descrição</span><textarea style="height: 150px; margin-bottom: 5px;" class="save-dynamic"></textarea>
+
+                <span class="label">Dados do Equipamento</span>
+                <div class="dados-grid">
+                    <div class="dado-box">
+                        <span>Tipo</span>
+                        <select class="save-dynamic">
+                            <option value="Dano">Dano</option>
+                            <option value="Suporte">Suporte</option>
+                            <option value="Utilidade">Utilidade</option>
+                            <option value="Mobilidade">Mobilidade</option>
+                        </select>
+                    </div>
+                    <div class="dado-box">
+                        <span>Alcance</span>
+                        <select class="save-dynamic">
+                            <option value="Nulo">Nulo</option>
+                            <option value="Contato">Contato</option>
+                            <option value="Curto 5m">Curto 5m</option>
+                            <option value="Médio 15m">Médio 15m</option>
+                            <option value="Longo 30m">Longo 30m</option>
+                        </select>
+                    </div>
+                    <div class="dado-box">
+                        <span>Área</span>
+                        <select class="save-dynamic">
+                            <option value="Nulo">Nulo</option>
+                            <option value="Pequena 10m">Pequena 10m</option>
+                            <option value="Média 20m">Média 20m</option>
+                            <option value="Grande 50m">Grande 50m</option>
+                        </select>
+                    </div>
+                    <div class="dado-box">
+                        <span>Mobilidade</span>
+                        <select class="save-dynamic">
+                            <option value="0 - Limitado">0 - Limitado</option>
+                            <option value="1 - Corredor">1 - Corredor</option>
+                            <option value="2 - Parkour">2 - Parkour</option>
+                            <option value="3 - Impulso">3 - Impulso</option>
+                            <option value="4 - Aéreo">4 - Aéreo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <span class="label">Rótulos de Poder</span>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                    <div class="power-activation-row">
+                        <input type="checkbox" class="power-toggle type-label dynamic-power-toggle" data-power-modifier="plus">
+                        <input type="text" class="save-dynamic">
+                    </div>
+                    <div class="power-activation-row">
+                        <input type="checkbox" class="power-toggle type-label dynamic-power-toggle" data-power-modifier="plus">
+                        <input type="text" class="save-dynamic">
+                    </div>
+                    <div class="power-activation-row">
+                        <input type="checkbox" class="power-toggle type-label dynamic-power-toggle" data-power-modifier="plus">
+                        <input type="text" class="save-dynamic">
+                    </div>
+                </div>
+                <span class="label">Fraqueza</span>
+                <div class="power-activation-row">
+                    <input type="checkbox" class="power-toggle type-weakness dynamic-power-toggle" data-power-modifier="minus">
+                    <input type="text" class="save-dynamic">
+                </div>
+            `
+        };
+
+        function addCard(type, zoneId, savedValues = null, savedToggles = null) {
+            const carousel = document.getElementById(zoneId);
+            if (!carousel) return;
+            
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.dataset.type = type;
+            
+            const delBtn = document.createElement('button');
+            delBtn.className = 'btn-delete';
+            delBtn.innerHTML = '✕';
+            delBtn.onclick = () => {
+                if (confirm(`Deseja mesmo excluir de forma definitiva este cartão de ${type === 'movimento' ? 'Movimento' : 'Equipamento'}?`)) {
+                    card.remove();
+                    saveAllData();
+                    calculatePowerSystem();
+                }
+            };
+            
+            card.appendChild(delBtn);
+            card.insertAdjacentHTML('beforeend', templates[type]());
+            carousel.appendChild(card);
+            
+            if (savedValues) {
+                const dynamics = card.querySelectorAll('.save-dynamic');
+                dynamics.forEach((element, index) => {
+                    if (savedValues[index] !== undefined) {
+                        element.value = savedValues[index];
+                    }
+                });
+            }
+
+            if (savedToggles) {
+                const toggles = card.querySelectorAll('.dynamic-power-toggle');
+                toggles.forEach((tg, index) => {
+                    if (savedToggles[index] !== undefined) {
+                        tg.checked = savedToggles[index];
+                    }
+                });
+            }
+            
+            carousel.scrollLeft = carousel.scrollWidth;
+            calculatePowerSystem();
+        }
+
+        function saveAllData() {
+            const dataPackage = {
+                fixed: {},
+                radios: {},
+                trackers: {},
+                capacidades: [],
+                suporte: []
+            };
+
+            document.querySelectorAll('[data-save]').forEach(el => {
+                dataPackage.fixed[el.getAttribute('data-save')] = el.value;
+            });
+
+            const radioGroups = ['turma-b', 'asc-b', 'cond-f', 'cond-e', 'dest-scale'];
+            radioGroups.forEach(groupName => {
+                const selected = document.querySelector(`input[name="${groupName}"]:checked`);
+                if (selected) {
+                    dataPackage.radios[groupName] = {
+                        value: selected.value,
+                        idx: Array.from(document.getElementsByName(groupName)).indexOf(selected)
+                    };
+                }
+            });
+
+            document.querySelectorAll('[data-tracker]').forEach(el => {
+                dataPackage.trackers[el.getAttribute('data-tracker')] = el.checked;
+            });
+
+            document.querySelectorAll('#zone-capacidades .card').forEach(card => {
+                const values = Array.from(card.querySelectorAll('.save-dynamic')).map(el => el.value);
+                const toggles = Array.from(card.querySelectorAll('.dynamic-power-toggle')).map(el => el.checked);
+                dataPackage.capacidades.push({ type: card.dataset.type, values: values, toggles: toggles });
+            });
+
+            document.querySelectorAll('#zone-suporte .card').forEach(card => {
+                const values = Array.from(card.querySelectorAll('.save-dynamic')).map(el => el.value);
+                const toggles = Array.from(card.querySelectorAll('.dynamic-power-toggle')).map(el => el.checked);
+                dataPackage.suporte.push({ type: card.dataset.type, values: values, toggles: toggles });
+            });
+
+            localStorage.setItem('hero_rpg_dashboard_save', JSON.stringify(dataPackage));
+        }
+
+        function loadAllData(importedData = null) {
+            let raw = importedData;
+            if (!raw) {
+                raw = localStorage.getItem('hero_rpg_dashboard_save');
+                if (!raw) return false;
+            }
+            
+            try {
+                const dataPackage = typeof raw === 'string' ? JSON.parse(raw) : raw;
+                
+                document.querySelectorAll('[data-save]').forEach(el => {
+                    const key = el.getAttribute('data-save');
+                    if (dataPackage.fixed && dataPackage.fixed[key] !== undefined) {
+                        el.value = dataPackage.fixed[key];
+                    }
+                });
+
+                if (dataPackage.radios) {
+                    Object.keys(dataPackage.radios).forEach(groupName => {
+                        const targetData = dataPackage.radios[groupName];
+                        const elements = document.getElementsByName(groupName);
+                        if (elements[targetData.idx]) {
+                            elements[targetData.idx].checked = true;
+                            elements[targetData.idx].dataset.wasChecked = "true";
+                        }
+                    });
+                }
+
+                document.querySelectorAll('[data-tracker]').forEach(el => {
+                    const key = el.getAttribute('data-tracker');
+                    if (dataPackage.trackers && dataPackage.trackers[key] !== undefined) {
+                        el.checked = dataPackage.trackers[key];
+                    }
+                });
+
+                document.getElementById('zone-capacidades').innerHTML = '';
+                if (dataPackage.capacidades) {
+                    dataPackage.capacidades.forEach(c => addCard(c.type, 'zone-capacidades', c.values, c.toggles));
+                }
+
+                document.getElementById('zone-suporte').innerHTML = '';
+                if (dataPackage.suporte) {
+                    dataPackage.suporte.forEach(s => addCard(s.type, 'zone-suporte', s.values, s.toggles));
+                }
+                
+                updateDynamicLimits();
+                checkPlusUltraStatus();
+                calculatePowerSystem(); 
+                return true;
+            } catch(e) {
+                console.error("Erro crítico ao ler os dados salvos:", e);
+                return false;
+            }
+        }
+
+        function exportData() {
+            saveAllData(); 
+            const dataStr = localStorage.getItem('hero_rpg_dashboard_save');
+            if (!dataStr) {
+                alert("Adicione ou digite alguma informação na ficha antes de exportar!");
+                return;
+            }
+            
+            let filename = document.querySelector('[data-save="char-name"]').value.trim().toUpperCase();
+            if(!filename) filename = "FICHA_HERO_RPG";
+            filename += `_${new Date().toISOString().slice(0,10)}.json`;
+
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultClassifier = document.createElement('a');
+            exportFileDefaultClassifier.setAttribute('href', dataUri);
+            exportFileDefaultClassifier.setAttribute('download', filename);
+            exportFileDefaultClassifier.click();
+        }
+
+        function triggerImport() {
+            document.getElementById('file-import').click();
+        }
+
+        function importData(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const success = loadAllData(e.target.result);
+                if (success) {
+                    saveAllData(); 
+                    alert("Fichas carregadas e sincronizadas com sucesso no seu painel!");
+                } else {
+                    alert("Ocorreu um erro ao tentar ler este arquivo. Verifique se escolheu o arquivo .json correto.");
+                }
+            };
+            reader.readAsText(file);
+            input.value = ''; 
+        }
+
+        // AGORA É EXECUTADO NA ORDEM PERFEITA PARA INICIAR BLOQUEADO
+        window.onload = function() {
+            // 1. Força a interface a definir Aspirante/Rua logo no início de tudo
+            const defaultAsc = document.querySelector('input[name="asc-b"][value="Aspirante"]');
+            const defaultScale = document.querySelector('input[name="dest-scale"][value="Rua"]');
+            if(defaultAsc) { defaultAsc.checked = true; defaultAsc.dataset.wasChecked = "true"; }
+            if(defaultScale) { defaultScale.checked = true; defaultScale.dataset.wasChecked = "true"; }
+
+            // 2. Bloqueia imediatamente as caixas 6 a 10 ANTES de gerar qualquer cartão ou carregar dados
+            updateDynamicLimits();
+
+            // 3. Tenta carregar o progresso existente. Se não houver, monta os cartões padrão vazios
+            const loaded = loadAllData();
+            if (!loaded) {
+                addCard('movimento', 'zone-capacidades');
+                addCard('equipamento', 'zone-suporte');
+            }
+            
+            // 4. Garante a consistência final dos blocos e do cálculo de energia
+            updateDynamicLimits();
+            calculatePowerSystem();
+        };
+    </script>
+</body>
+</html>
+
