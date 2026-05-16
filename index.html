@@ -1,377 +1,602 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>U.A. Terminal - Ultimate Edition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta name="viewport" content="width=1300, initial-scale=1.0">
+    <title>Painel de Fichas Hero RPG</title>
     <style>
-        :root {
-            --ua-blue: #0c234b;
-            --ua-red: #ab0520;
-            --ua-gold: #ffc844;
-            --bg-dark: #0a0e14;
-            --card-bg: #161b22;
-            --zona-verde: #23d160;
-            --zona-laranja: #ffdd57;
-            --zona-vermelha: #ff3860;
-            --text-silver: #c9d1d9;
-            --med-blue: #3b82f6;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Oswald:wght@500;700&family=Roboto:wght@400;700&display=swap');
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-silver);
-            font-family: 'Montserrat', sans-serif;
-            padding: 10px;
-            line-height: 1.4;
-        }
-
-        .container {
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            border-bottom: 3px solid var(--ua-gold);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
+            background: radial-gradient(circle, #232526 0%, #414345 100%);
+            color: #1a1a1a;
+            padding: 25px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            font-family: 'Oswald', sans-serif;
+            min-width: 1300px;
         }
 
         h1 {
-            font-family: 'Anton', sans-serif;
-            font-size: clamp(1.8rem, 6vw, 3rem);
             color: #fff;
+            font-family: 'Bangers', cursive;
+            font-size: 3rem;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 0px #ff4e50, 6px 6px 0px #000;
+            text-align: center;
+        }
+
+        .controls-container {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            max-width: 1250px;
+            align-items: stretch;
+        }
+
+        .controls-panel {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px 30px;
+            border-radius: 14px;
+            border: 2px solid #ff4e50;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            flex-wrap: wrap;
+        }
+
+        .power-tracker-panel {
+            background: #e2dfd5;
+            border: 4px solid #333;
+            border-radius: 12px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .power-subbox {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0,0,0,0.05);
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        .power-subbox span {
+            font-size: 0.8rem;
+            font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            color: #444;
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+            letter-spacing: 1px;
         }
 
-        .subtitle {
-            color: var(--ua-gold);
-            font-weight: 900;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
+        .power-display-value {
+            background: #fff;
+            border: 2px solid #333;
+            border-radius: 6px;
+            font-size: 2.2rem;
+            font-family: 'Bangers', cursive;
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #222;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr;
+        .power-subbox.total-power {
+            background: #333;
+            color: #fff;
+            padding: 4px 12px;
+        }
+        .power-subbox.total-power span { color: #f1c40f; }
+        .power-subbox.total-power .power-display-value {
+            background: #f1c40f;
+            color: #222;
+            border-color: #fff;
+        }
+
+        .controls-title {
+            color: #fff;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-add {
+            color: white;
+            border: 2px solid #222;
+            padding: 8px 14px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 0px #222;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            position: relative; 
+            z-index: 100;
+        }
+
+        .btn-add:hover { transform: translateY(-2px); box-shadow: 0 6px 0px #222; }
+        .btn-add:active { transform: translateY(2px); box-shadow: 0 2px 0px #222; }
+        .btn-add.btn-movimento { background: linear-gradient(135deg, #834d9b, #d04ed6); }
+        .btn-add.btn-equipamento { background: linear-gradient(135deg, #11998e, #38ef7d); }
+        
+        .btn-system { background: linear-gradient(135deg, #ff4e50, #f9d423); color: #222; }
+        .btn-system-load { background: linear-gradient(135deg, #2193b0, #6dd5ed); color: #fff; }
+        .btn-system-reset { background: linear-gradient(135deg, #d31027, #ea384d); color: #fff; }
+
+        .board {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            width: 100%;
+            max-width: 1250px;
+        }
+
+        .zone {
+            background: rgba(255, 255, 255, 0.04);
+            border: 2px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 18px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
             gap: 15px;
         }
 
-        @media (min-width: 1024px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+        .zone-header { border-bottom: 2px solid rgba(255, 255, 255, 0.1); padding-bottom: 5px; }
+        .zone-title {
+            font-family: 'Bangers', cursive;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            color: #fff;
+            text-shadow: 2px 2px 0px #000;
         }
 
-        .section {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 15px;
-            height: fit-content;
-            margin-bottom: 15px;
+        .cards-carousel {
+            display: flex;
+            flex-direction: row;
+            gap: 25px;
+            overflow-x: auto;
+            padding: 10px 5px 20px 5px;
+            width: 100%;
         }
 
-        .section-header {
-            font-family: 'Anton', sans-serif;
-            color: var(--ua-gold);
-            font-size: 1.2rem;
-            margin-bottom: 12px;
+        .cards-carousel::-webkit-scrollbar { height: 10px; }
+        .cards-carousel::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 10px; }
+        .cards-carousel::-webkit-scrollbar-thumb { background: #ff4e50; border: 2px solid #222; border-radius: 10px; }
+
+        .card {
+            background-color: #bcbbb4;
+            width: 375px;
+            min-width: 375px;
+            height: 815px;
+            border: 5px solid #333333;
+            border-radius: 22px;
+            padding: 14px 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .btn-delete {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            background: #222;
+            color: #fff;
+            border: 2px solid #fff;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 8px;
+            justify-content: center;
+            z-index: 10;
+        }
+        .btn-delete:hover { background: #e63946; }
+
+        .card-header {
+            color: #ffffff;
+            padding: 10px 14px;
+            font-size: 1.4rem;
+            font-family: 'Bangers', cursive;
+            letter-spacing: 1px;
             text-transform: uppercase;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #222;
         }
 
-        .zonas-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+        .header-personagem { background: linear-gradient(90deg, #0052d4 0%, #a8a0f5 100%); }
+        .header-individualidade { background: linear-gradient(90deg, #ff4e50 0%, #f9d423 100%); }
+        .header-movimento { background: linear-gradient(90deg, #834d9b 0%, #f76bfd 65%, #ff9472 100%); }
+        .header-equipamento { background: linear-gradient(90deg, #00a896 0%, #028090 50%, #02c39a 100%); }
+        .header-status { background: linear-gradient(90deg, #ba1331 0%, #6f0000 50%, #4a00e0 100%); }
+
+        .rank-box {
+            display: flex;
+            align-items: center;
             gap: 6px;
-            margin-bottom: 15px;
         }
-
-        .zona-box {
-            padding: 10px 2px;
-            border-radius: 4px;
-            text-align: center;
-            font-weight: 900;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-        }
-
-        .zv { background: var(--zona-verde); color: #000; }
-        .zl { background: var(--zona-laranja); color: #000; }
-        .zr { background: var(--zona-vermelha); color: #fff; }
-        .zc { background: #000; color: var(--zona-vermelha); border: 2px solid var(--zona-vermelha); }
-
-        .recuperacao-box {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid var(--med-blue);
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
-
-        .recuperacao-box h4 {
-            color: var(--med-blue);
-            font-family: 'Anton';
-            font-size: 1rem;
-            margin-bottom: 5px;
-        }
-
-        .action-tag {
-            background: var(--med-blue);
-            color: white;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 0.65rem;
-            font-weight: 800;
-        }
-
-        .grid-sub {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-        }
-
-        @media (min-width: 600px) { .grid-sub { grid-template-columns: 1fr 1fr; } }
-
-        .item-card {
-            background: rgba(255,255,255,0.03);
-            padding: 10px;
+        
+        input[type="text"], textarea, select {
+            background-color: #d8d7d2;
+            border: 2px solid #9e9d98;
             border-radius: 6px;
-            border-left: 3px solid var(--ua-blue);
+            padding: 5px 10px;
+            width: 100%;
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+            color: #222;
+            resize: none;
+        }
+        input[type="text"]:focus, textarea:focus, select:focus {
+            outline: none;
+            background: #fff;
+            border-color: #222;
         }
 
-        .item-card h5 { font-family: 'Anton'; color: var(--ua-gold); font-size: 0.9rem; }
-        .item-card p { font-size: 0.75rem; color: #8b949e; margin-top: 3px; }
-
-        .ferimento-card {
-            border-left: 4px solid transparent;
-            padding: 8px 12px;
-            background: rgba(0,0,0,0.2);
-            margin-bottom: 8px;
-            border-radius: 4px;
-        }
-
-        .f-leve { border-left-color: var(--zona-verde); }
-        .f-mod { border-left-color: var(--zona-laranja); }
-        .f-grave { border-left-color: var(--zona-vermelha); }
-
-        .ferimento-info { display: flex; justify-content: space-between; align-items: center; }
-        .timer { font-size: 0.65rem; font-weight: 800; color: var(--ua-gold); }
-
-        .table-wrap { overflow-x: auto; margin-top: 10px; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        th { text-align: left; padding: 10px; color: var(--ua-gold); border-bottom: 1px solid var(--ua-gold); }
-        td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-
-        .plus-ultra-full {
-            background: linear-gradient(90deg, var(--ua-gold), #ffecb3);
-            color: var(--ua-blue);
-            padding: 15px;
-            border-radius: 8px;
-            border-right: 8px solid var(--ua-red);
-            font-weight: 800;
-            font-size: 0.8rem;
-            margin-top: 15px;
-        }
-
-        .suporte-wrap {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 5px;
-            margin-top: 10px;
-        }
-
-        .suporte-item {
-            background: #000;
-            padding: 12px 2px;
+        .rank-box select {
+            background: #fff;
+            border: 2px solid #222;
+            width: 65px;
+            padding: 2px;
             text-align: center;
+            font-weight: bold;
+            font-family: 'Oswald', sans-serif;
             border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 700;
+            font-size: 14px;
         }
 
-        .rank-s { color: var(--ua-gold); font-weight: 900; }
-
-        .equip-details {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        @media (min-width: 768px) {
-            .equip-details { grid-template-columns: 1fr 1fr; }
-        }
-
-        .equip-rank-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 12px;
-            border-radius: 8px;
-        }
-
-        .equip-rank-card h6 { font-family: 'Anton'; font-size: 1rem; margin-bottom: 5px; }
-        .equip-rank-card p { font-size: 0.75rem; color: #94a3b8; }
-
-        footer {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 0.6rem;
-            color: #484f58;
-            letter-spacing: 2px;
+        .title-input {
+            background: transparent !important;
+            border: none !important;
+            border-bottom: 3px dashed #666 !important;
+            border-radius: 0 !important;
+            font-size: 1.8rem;
+            font-family: 'Bangers', cursive;
+            letter-spacing: 1px;
+            color: #333;
+            padding: 2px 0 !important;
+            margin-bottom: 12px;
             text-transform: uppercase;
+        }
+
+        .label {
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 6px;
+            margin-bottom: 2px;
+            display: block;
+            color: #000;
+        }
+
+        .power-activation-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            width: 100%;
+        }
+
+        .power-activation-row.locked-row {
+            opacity: 0.4;
+        }
+
+        .power-toggle {
+            appearance: none;
+            background-color: #d8d7d2;
+            border: 2px solid #9e9d98;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .power-toggle::before {
+            content: "⚡";
+            font-size: 0.9rem;
+            color: #9e9d98;
+            filter: grayscale(1);
+            transition: all 0.2s;
+        }
+        .power-toggle:checked {
+            background-color: #222;
+            border-color: #222;
+        }
+        .power-toggle.type-label:checked { background-color: #f39c12; border-color: #d35400; }
+        .power-toggle.type-weakness:checked { background-color: #c0392b; border-color: #7f8c8d; }
+
+        .power-toggle:checked::before {
+            filter: grayscale(0);
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .power-toggle:disabled, input[type="text"]:disabled {
+            cursor: not-allowed;
+            background-color: #b8b7b2;
+        }
+
+        .dados-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .dado-box {
+            background-color: #d8d7d2;
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 2px solid #9e9d98;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .dado-box span {
+            font-size: 0.75rem;
+            color: #444;
+            display: block;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+        .dado-box select {
+            background: transparent;
+            border: none;
+            padding: 0;
+            font-size: 0.95rem;
+            font-weight: bold;
+            width: 100%;
+            font-family: 'Oswald', sans-serif;
+            color: #222;
+        }
+
+        .turma-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #d8d7d2;
+            padding: 6px;
+            border-radius: 6px;
+            border: 2px solid #9e9d98;
+        }
+        .turma-options label { font-size: 1.2rem; font-weight: bold; cursor: pointer; color: #555; padding: 0 4px; }
+        .turma-options input { display: none; }
+        .turma-options label:has(input:checked) {
+            color: #fff;
+            background-color: #222;
+            border-radius: 4px;
+            transform: scale(1.05);
+        }
+
+        .ascencao-container { display: flex; flex-direction: column; gap: 4px; margin-top: 2px; }
+        .ascencao-row {
+            background-color: #d8d7d2;
+            border: 2px solid #9e9d98;
+            padding: 5px;
+            text-align: center;
+            border-radius: 6px;
+            text-transform: uppercase;
+            font-size: 1.05rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+        }
+        .ascencao-row input { position: absolute; opacity: 0; width: 100%; height: 100%; top:0; left:0; cursor: pointer; }
+        .ascencao-row span { color: #222; }
+        .ascencao-row:has(input:checked) { background-color: #222; }
+        .ascencao-row:has(input:checked) span { color: #fff; }
+
+        .ascencao-row.symbol { font-family: 'Bangers', cursive; font-size: 1.6rem; padding: 2px; }
+        .ascencao-row.symbol:has(input:checked) { background: linear-gradient(135deg, #f1c40f, #f39c12); border-color: #222; }
+
+        .scale-options {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+            background: #d8d7d2;
+            padding: 6px;
+            border-radius: 6px;
+            border: 2px solid #9e9d98;
+        }
+        .scale-options label {
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            color: #444;
+            text-align: center;
+            padding: 5px 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .scale-options input { display: none; }
+        .scale-options label:has(input:checked) {
+            color: #fff;
+            background-color: #d31027;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .status-section-title {
+            color: white;
+            padding: 4px 12px;
+            font-size: 1.2rem;
+            font-family: 'Bangers', cursive;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-radius: 6px;
+            margin-top: 2px;
+            margin-bottom: 6px;
+            border: 2px solid #222;
+        }
+        .bg-feridas { background: #ba1331; }
+        .bg-energia { background: #4364f7; }
+
+        .tracker-wrapper { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 6px; }
+        .tracker-cell {
+            background-color: #d8d7d2;
+            border: 2px solid #9e9d98;
+            height: 52px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tracker-cell span { font-size: 1.6rem; font-weight: bold; color: #9e9d98; font-style: italic; user-select: none; }
+        .tracker-cell input { position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+        
+        .tracker-feridas .tracker-cell:has(input:checked) { background: #ba1331; border-color: #222; }
+        .tracker-energia .tracker-cell:has(input:checked) { background: #4364f7; border-color: #222; }
+        .tracker-cell:has(input:checked) span { color: #fff; }
+
+        .tracker-cell.locked {
+            background-color: #9c9b96 !important;
+            border-color: #7a7974 !important;
+            cursor: not-allowed !important;
+            opacity: 0.6;
+        }
+        .tracker-cell.locked span {
+            color: #555 !important;
+        }
+        .tracker-cell.locked::after {
+            content: "🔒";
+            position: absolute;
+            font-size: 0.8rem;
+            bottom: 2px;
+            right: 4px;
+        }
+        .tracker-cell.locked input {
+            display: none !important;
+        }
+
+        .condicao-box {
+            background-color: #d8d7d2;
+            padding: 6px;
+            border-radius: 6px;
+            border: 2px solid #9e9d98;
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .condicao-box label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+        .condicao-box input { accent-color: #222; width: 14px; height: 14px; }
+
+        .btn-plus-ultra {
+            width: 100%;
+            padding: 10px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            border-radius: 8px;
+            border: 3px solid #777;
+            background: #555;
+            color: #888;
+            cursor: not-allowed;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 0px #000;
+            box-shadow: inset 0 -4px 0px rgba(0,0,0,0.3);
+            margin-top: auto;
+            transition: all 0.3s ease;
+        }
+
+        .btn-plus-ultra.active {
+            background: linear-gradient(135deg, #f1c40f 0%, #e74c3c 50%, #3498db 100%);
+            border-color: #fff;
+            color: #fff;
+            cursor: pointer;
+            text-shadow: 2px 2px 0px #000, -1px -1px 0px #000;
+            box-shadow: 0 6px 15px rgba(231, 76, 60, 0.5), inset 0 -4px 0px #962d22;
+            animation: pulseUltra 1.5s infinite;
+        }
+
+        @keyframes pulseUltra {
+            0% { box-shadow: 0 0 0 0 rgba(241, 196, 15, 0.7); }
+            70% { box-shadow: 0 0 0 12px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 152, 219, 0); }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>U.A. OPERATIONAL TERMINAL</h1>
-        <div class="subtitle">SISTEMA INTEGRADO DE COMBATE E RECUPERAÇÃO</div>
-    </header>
+    <h1>Painel de Fichas Hero RPG</h1>
 
-    <div class="dashboard-grid">
-        <!-- COLUNA 1: SAÚDE E RECUPERAÇÃO -->
-        <div class="column">
-            <!-- ZONAS E RECUPERAÇÃO -->
-            <section class="section">
-                <div class="section-header"><i class="fa-solid fa-heart-pulse"></i> Zonas e Recuperação</div>
-                <div class="zonas-grid">
-                    <div class="zona-box zv">Verde</div>
-                    <div class="zona-box zl">Laranja</div>
-                    <div class="zona-box zr">Vermelha</div>
-                    <div class="zona-box zc">Colapso</div>
-                </div>
-                
-                <div class="recuperacao-box">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h4><i class="fa-solid fa-battery-bolt"></i> RECARGA DE ENERGIA</h4>
-                        <span class="action-tag">1 AÇÃO INTEIRA</span>
-                    </div>
-                    <p style="font-size: 0.75rem; margin-top: 4px;">
-                        Requisito: <strong>Parado e fora de combate.</strong> Recupera energia vital, podendo ou não subir 1 nível de zona a depender da análise do ADM (ex: Vermelha → Laranja).
-                    </p>
-                </div>
-
-                <div class="plus-ultra-full">
-                    <i class="fa-solid fa-bolt-lightning"></i> PLUS ULTRA (1 USO): Reseta para a Zona Laranja se usado após um colapso. Ao chegar na Zona Vermelha novamente você colapsa de imediato, ficando fora de combate.
-                </div>
-            </section>
-
-            <!-- PROTOCOLO DE ENFERMARIA (ABAIXO DE ZONAS) -->
-            <section class="section">
-                <div class="section-header"><i class="fa-solid fa-kit-medical"></i> Protocolo de Enfermaria</div>
-                <div class="ferimento-card f-leve">
-                    <div class="ferimento-info"><strong>LEVE</strong> <span class="timer">1 Cena</span></div>
-                    <p style="font-size: 0.7rem; color: #8b949e;">Contusões. Recuperação rápida pós-combate.</p>
-                </div>
-                <div class="ferimento-card f-mod">
-                    <div class="ferimento-info"><strong>MODERADO</strong> <span class="timer">2 Cenas + Descanso</span></div>
-                    <p style="font-size: 0.7rem; color: #8b949e;">Exaustão severa e ferimentos, requer cuidados.</p>
-                </div>
-                <div class="ferimento-card f-grave">
-                    <div class="ferimento-info"><strong>GRAVE</strong> <span class="timer">3 Cenas + 1 Dia Full</span></div>
-                    <p style="font-size: 0.7rem; color: #8b949e;">Trauma físico/quirk, requer cuidados <strong>urgentes.</strong></p>
-                </div>
-            </section>
-
-            <!-- ITENS DE SUPORTE -->
-            <section class="section">
-                <div class="section-header"><i class="fa-solid fa-microchip"></i> Itens de Suporte</div>
-                <div class="suporte-wrap">
-                    <div class="suporte-item">RANK C<br><small>Padrão</small></div>
-                    <div class="suporte-item">RANK B<br><small>Avançado</small></div>
-                    <div class="suporte-item" style="border: 1px solid var(--ua-red);">RANK A<br><small>Especializado</small></div>
-                    <div class="suporte-item rank-s" style="border: 1px solid var(--ua-gold);">RANK S<br><small>Elite</small></div>
-                </div>
-            </section>
-
-            <!-- ESPECIFICAÇÕES DE SUPORTE (ABAIXO DE ITENS) -->
-            <section class="section">
-                <div class="section-header"><i class="fa-solid fa-screwdriver-wrench"></i> Especificações Técnicas</div>
-                <div class="equip-details">
-                    <div class="equip-rank-card" style="border-top: 2px solid #94a3b8;">
-                        <h6 style="color: #94a3b8;">RANK C</h6>
-                        <p>Equipamentos básicos e seguros, usados por estudantes e heróis iniciantes. Focados em utilidade e estabilidade.</p>
-                    </div>
-                    <div class="equip-rank-card" style="border-top: 2px solid #3b82f6;">
-                        <h6 style="color: #3b82f6;">RANK B</h6>
-                        <p>Suportes aprimorados com melhor desempenho, mobilidade e adaptação para Individualidades específicas.</p>
-                    </div>
-                    <div class="equip-rank-card" style="border-top: 2px solid var(--ua-red);">
-                        <h6 style="color: var(--ua-red);">RANK A</h6>
-                        <p>Equipamentos personalizados e raros, criados para estilos de combate únicos e usuários experientes.</p>
-                    </div>
-                    <div class="equip-rank-card" style="border-top: 2px solid var(--ua-gold);">
-                        <h6 style="color: var(--ua-gold);">RANK S</h6>
-                        <p>Tecnologia de ponta criada com engenharia avançada, capaz de elevar uma Individualidade a níveis excepcionais.</p>
-                    </div>
-                </div>
-            </section>
+    <div class="controls-container">
+        <div class="controls-panel">
+            <span class="controls-title">Ações:</span>
+            <button class="btn-add btn-movimento" onclick="addCard('movimento', 'zone-capacidades')">+ Movimento</button>
+            <button class="btn-add btn-equipamento" onclick="addCard('equipamento', 'zone-suporte')">+ Equipamento</button>
+            <span style="color: rgba(255,255,255,0.3); margin: 0 5px;">|</span>
+            <button class="btn-add btn-system" onclick="exportData()">💾 Exportar (Save)</button>
+            <button class="btn-add btn-system-load" onclick="triggerImport()">📂 Importar (Load)</button>
+            <button class="btn-add btn-system-reset" onclick="resetPowerCounters()">🔄 Zerar Contadores</button>
+            <input type="file" id="file-import" accept=".json" style="display: none;" onchange="importData(this)">
         </div>
 
-        <!-- COLUNA 2: PROGRESSÃO E RANKING -->
-        <div class="column">
-            <!-- ESTÁGIOS DE ASCENSÃO -->
-            <section class="section">
-                <div class="section-header"><i class="fa-solid fa-graduation-cap"></i> Estágios de Ascensão</div>
-                <div class="grid-sub">
-                    <div class="item-card">
-                        <h5>1. ASPIRANTE</h5>
-                        <p>Controle instável. O herói luta contra o recuo do próprio poder.</p>
-                    </div>
-                    <div class="item-card" style="border-left-color: var(--ua-gold);">
-                        <h5>2. ESPECIALISTA</h5>
-                        <p>Domínio técnico. Criação de variações e Super Moves.</p>
-                    </div>
-                    <div class="item-card" style="border-left-color: var(--ua-red);">
-                        <h5>3. PRO-HERO</h5>
-                        <p>Instinto total. Mantém pico de performance em Zonas Críticas.</p>
-                    </div>
-                    <div class="item-card" style="border-left-color: #fff;">
-                        <h5>4. MONITOR</h5>
-                        <p>Status de suporte. Auxilia a recuperação de aliados próximos.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ESCALA DE DESASTRE (ABAIXO DE ASCENSÃO) -->
-            <section class="section">
-                <div class="section-header"><i class="fa-solid fa-triangle-exclamation"></i> Escala de Desastre</div>
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr><th>LVL</th><th>PATENTE</th><th>POTENCIAL</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>1-2</td><td>Recruta</td><td>RUA</td></tr>
-                            <tr><td>3-4</td><td>Sidekick</td><td>QUARTEIRÃO</td></tr>
-                            <tr><td>5-6</td><td>Herói Local</td><td>DISTRITO</td></tr>
-                            <tr><td>7-8</td><td>Herói Regional</td><td>CIDADE</td></tr>
-                            <tr><td>9-10</td><td>Símbolo</td><td style="color: var(--zona-vermelha); font-weight: 900;">NACIONAL</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+        <div class="power-tracker-panel">
+            <div class="power-subbox">
+                <span>Plus</span>
+                <div id="display-plus" class="power-display-value">0</div>
+            </div>
+            <div class="power-subbox">
+                <span>Minus</span>
+                <div id="display-minus" class="power-display-value">0</div>
+            </div>
+            <div class="power-subbox total-power">
+                <span>Power</span>
+                <div id="display-power" class="power-display-value">0</div>
+            </div>
         </div>
     </div>
 
-    <footer>
-        U.A. HIGH SCHOOL ADMINISTRATION | GO BEYOND | PLUS ULTRA!
-    </footer>
-</div>
-
-</body>
-</html>
+    <div class="board">
+        
+        <div class="zone">
+            <div class="zone-header">
+                <div class="zone-title">⚡ Personagem</div>
+            </div>
+            <div class="cards-carousel" id="zone-fixa">
+                
+                <div class="card" data-card-id="fixed-character">
+                    <div class="card-header header-personagem"><span>Ficha de Personagem</span></div>
+           
